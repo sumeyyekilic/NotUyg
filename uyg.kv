@@ -1,0 +1,188 @@
+<uygEkran>:
+    Menu:
+        name:'menu'
+    Tiyatrolar:
+        name:'tiyatrolar'
+    Notlarim:
+        name:'not'
+    Gorevler:
+        name:'gorevler'
+
+
+<Menu>:
+    RelativeLayout:
+    #üst menü için relative
+        orientation: 'vertical'
+        canvas:
+            Rectangle:
+                size:self.size
+                pos:self.pos
+                source:'sumsaturn.jpg'
+        ActionBar:
+            background_color:1,1,1,0.5
+            size_hint:1,0.1
+            pos_hint:{"top":1}
+            ActionView:
+                use_separator:True
+                ActionPrevious:
+                    title:'Süm-ün UYGULAMASI'
+                    color:0,0,1,1
+                    with_previous:False
+                    app_icon:'index.jpeg'
+                ActionButton:
+                    icon:'exit.png'
+                    on_release:app.stop()
+                ActionOverflow:
+                    ActionButton:
+                        text:'yardım'
+                    ActionButton:
+                        text:'çıkış'
+                        on_release:app.stop()
+    BoxLayout:
+        orientation:"vertical"
+        size_hint:1, None
+        pos_hint:{"center_x":0.2,"center_y":0.8}
+        Label:
+            text:"buraya yazı yazılsın"
+            color:0,0,1,1
+    BoxLayout:
+        orientation:"vertical"
+        size_hint:1, None
+        #pos_hint:{"center_x":0.5,"center_y":0.6}
+        Button:
+            text:"Tiyatroda NE VAR?"
+            on_release:app.root.current='tiyatrolar'
+            background_color:(0.49,1,0.66,1)
+        Button:
+            text:"Notlarım"
+            on_release:app.root.current='not'
+            background_color:(0.49,1,0.66,1)
+<Tbutton>:
+    size_hint:1,None
+    height:65
+    background_normal:"button.jpeg"
+    background_down:"buttonn.jpeg"
+<Tiyatrolar>:
+    grid:_grid
+    BoxLayout:
+        orientation:"vertical"
+        padding:50
+        spacing:5
+        AsyncImage:
+            source:"index.jpeg"
+            allow_stretch:True
+            keep_ration:True
+            size_hint:None,None
+            size:128,150
+            pos_hint:{"center_x":0.5}
+        ScrollView:
+            size_hint:1,0.8
+            GridLayout:
+                size_hint_y:None
+                id:_grid
+                cols:1
+                padding:2
+                spacing:5
+    RelativeLayout:
+    #üst menü için relative
+        orientation: 'vertical'
+        ActionBar:
+            background_color:0,191,255,0.5
+            size_hint:1,0.1
+            pos_hint:{"top":1}
+            ActionView:
+                use_separator:True
+                ActionPrevious:
+                    title:'*** UYGULAMASI'
+                    with_previous:False
+                    app_icon:'index.jpeg'
+                ActionButton:
+                    icon:'home.png'
+                    on_release:app.root.current='menu'
+                ActionButton:
+                    text:'geri'
+                    on_release:app.root.current='menu'
+                ActionOverflow:
+                    ActionButton:
+                        text:'yardım'
+                    ActionButton:
+                        text:'Çıkış'
+                        on_release:app.stop()
+
+<Notlarim>:
+    RelativeLayout:
+    #üst menü için relative
+        orientation: 'vertical'
+        ActionBar:
+            background_color:0,191,255,0.5
+            size_hint:1,0.1
+            pos_hint:{"top":1}
+            ActionView:
+                use_separator:True
+                ActionPrevious:
+                    title:'*** UYGULAMASI'
+                    with_previous:False
+                    app_icon:'index.jpeg'
+                ActionButton:
+                    icon:'home.png'
+                    on_release:app.root.current='menu'
+                ActionOverflow:
+                    ActionButton:
+                        text:'yardım'
+                    ActionButton:
+                        text:'Çıkış'
+                        on_release:root.kabulet()
+        BoxLayout:
+            orientation: 'vertical'
+            padding:200
+            spacing:50
+
+            OvalButon:
+                text:'Gorevler'
+                on_release:app.root.current='gorevler'
+            OvalButon:
+                text:'Yardim'
+            OvalButon:
+                text:'Cikis'
+                on_release:root.kabulet()
+
+<Gorevler>:
+    BoxLayout:
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title:'Gorevler'
+                    on_release:app.root.current='not'
+                ActionButton:
+                    text:'Cikis'
+                    on_release:app.stop()
+        ScrollView:
+            BoxLayout:
+                id:box
+                orientation:'vertical'
+                size_hint_y:None
+                height:self.minimum_height
+        BoxLayout:
+            size_hint_y: None
+            height:'40sp'
+            TextInput:
+                id:textekle
+            Button:
+                text:'+'
+                size_hint_x: None
+                width:'40sp'
+                on_release: root.addWidget()
+<Gorev>:
+    id:box
+    size_hint_y:None
+    height:'100sp'
+    Label:
+        id:label
+        font_size:'20sp'
+        color:0,0,1,1
+    Button:
+        text:'x'
+        size_hint_x: None
+        width:'40sp'
+        on_release:app.root.get_screen('gorevler').kaldirWidget(root)
